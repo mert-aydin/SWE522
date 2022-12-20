@@ -3,6 +3,9 @@ import csv
 # number of correct classification of emails
 correctResults = 0
 
+# number of feature request classified correctly
+feature_emails_detected_correctly = 0
+
 # define the keywords that we want to check for
 keywords = ['develop', 'development', 'feature', 'implement']
 
@@ -30,20 +33,22 @@ for index, an_email in enumerate(all_emails):
     # calculate the certainty value as number of keywords found divided by number of words in an email
     certainty = keyword_found / len(an_email.split()) * 100
     # initialize a flag to keep track of whether the email is about the topic
-    is_about_topic = certainty > 1.5
+    is_feature_request = certainty > 1.65
 
     # check the value of the flag and print the appropriate message
-    if is_about_topic:
-        print("{}. The email is about a feature request with {}% certainty.".format(index + 1, certainty))
+    if is_feature_request:
+        print("%3d. The email is about a feature request with %.2f%% certainty." % ((index + 1), certainty))
         if index in emails_with_feature_requests:
             correctResults += 1
+            feature_emails_detected_correctly += 1
         else:
             correctResults -= 1
     else:
-        print("{}. The email is not about a feature request with {}% certainty.".format(index + 1, certainty))
+        print("%3d. The email is not about a feature request with %.2f%% certainty." % ((index + 1), certainty))
         if index in emails_with_feature_requests:
             correctResults -= 1
         else:
             correctResults += 1
 
-print("\nAccuracy: {}%".format(correctResults / len(all_emails) * 100))
+print("\nPrecision: %.2f%%" % (correctResults / len(all_emails) * 100))
+print("Recall: %.2f%%" % (feature_emails_detected_correctly / len(emails_with_feature_requests) * 100))
