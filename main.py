@@ -32,7 +32,8 @@ for index, an_email in enumerate(all_emails):
 
     # calculate the certainty value as number of keywords found divided by number of words in an email
     certainty = keyword_found / len(an_email.split()) * 100
-    # initialize a flag to keep track of whether the email is about the topic
+    # initialize a flag to keep track of whether the email is about a feature request
+    # we detected that 1.65% is the optimal value for classifying an email's topic
     is_feature_request = certainty > 1.65
 
     # check the value of the flag and print the appropriate message
