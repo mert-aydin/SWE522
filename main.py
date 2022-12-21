@@ -50,5 +50,7 @@ for index, an_email in enumerate(all_emails):
         else:
             correctResults += 1
 
+# ratio correct classifications
 print("\nPrecision: %.2f%%" % (correctResults / len(all_emails) * 100))
+# ratio of number of feature request email detected divided by number of feature request emails
 print("Recall: %.2f%%" % (feature_emails_detected_correctly / len(emails_with_feature_requests) * 100))
